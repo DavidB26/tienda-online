@@ -1,13 +1,25 @@
-import "./App.css";
+import { useState, useEffect } from 'react'
 import Card from '../../Components/Card'
-import CardData from '../../Components/CardData'
 
-function App() {
+
+function Home() {
+  const [items, setItems] = useState(null)
+
+  useEffect(() => {
+    fetch('https://api.escuelajs.co/api/v1/products')
+      .then(response => response.json())
+      .then(data => setItems(data))
+  }, [])
   return (
-  <div>
-    <CardData/>
-  </div>
- )
+    <div className='grid w-full max-w-screen-lg grid-cols-4 gap-4'>
+      {
+        items?.map(item => (
+          <Card key={item.id} data={item} />
+        )
+        )
+      }
+    </div>
+  )
 }
 
-export default App;
+export default Home;
