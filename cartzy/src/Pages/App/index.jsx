@@ -8,15 +8,16 @@ import SignIn from '../SignIn'
 import Navbar from '../../Components/Navbar'
 import "./App.css";
 import Layout from '../../Components/Layout'
+import { ShoppingCartProvider } from '../../Context'
 
 const AppRoutes = () => {
   let routes = useRoutes([
-    {path: '/',element: <Home />},
-    {path: '/my-account',element: <MyAccount />},
-    {path: '/my-orders',element: <MyOrders />},
-    {path: '/my-order',element: <MyOrder />}, 
-    {path: '/sign-in',element: <SignIn />},
-    {path: '/*',element: <NotFound />},
+    { path: '/', element: <Home /> },
+    { path: '/my-account', element: <MyAccount /> },
+    { path: '/my-orders', element: <MyOrders /> },
+    { path: '/my-order', element: <MyOrder /> },
+    { path: '/sign-in', element: <SignIn /> },
+    { path: '/*', element: <NotFound /> },
   ])
 
   return routes
@@ -27,12 +28,15 @@ const App = () => {
 
 
   return (
-    <BrowserRouter>
-      <Navbar/>
-      <Layout>
-      <AppRoutes />
-      </Layout>
-    </BrowserRouter>
+    <ShoppingCartProvider>
+      <BrowserRouter>
+        <Navbar />
+        <Layout>
+          <AppRoutes />
+        </Layout>
+      </BrowserRouter>
+    </ShoppingCartProvider>
+
   )
 }
 
