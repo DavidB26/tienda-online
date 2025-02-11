@@ -2,11 +2,11 @@ import { FaPlus } from "react-icons/fa6";
 import { useContext } from "react";
 import { ShoppingCartContext } from "../../Context";
 
-const Card = ({ data }) => {
+const Card = ({ data,onClick }) => {
   const context = useContext(ShoppingCartContext);
 
   return (
-    <div className="w-56 bg-white rounded-lg cursor-pointer h-60">
+    <div className="w-56 bg-white rounded-lg cursor-pointer h-60" onClick={onClick}>
       <figure className="relative w-full mb-2 h-4/5">
         <div className="absolute top-0 left-0 z-10 w-full h-full rounded-lg bg-black/30"></div>
         <span className="absolute bottom-0 left-0 m-2 text-xs text-black rounded-lg bg-white/60 px-3 py-0.5 z-20">

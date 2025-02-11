@@ -63,49 +63,51 @@ const navRight = [
     },
     {
         to: '/cart',
-        text: '🛒',
+        text: '🛒 ',
         className: ''
     },
 ]
 
 const Navbar = () => {
+  const context = useContext(ShoppingCartContext);
+  return (
+    <nav className="fixed top-0 z-10 flex items-center justify-between w-full px-8 py-5 text-sm font-light bg-white shadow-md">
+      <ul className="flex items-center gap-3">
+        {navLeft.map((item, index) => (
+          <li key={item.text} className={item.className}>
+            <NavLink to={item.to}
+              className={({ isActive }) => isActive && index !== 0 ? "underline underline-offset-4" : undefined}
+            >
+              {item.text}
+            </NavLink>
+          </li>
+        ))}
+      </ul>
 
-  const context = useContext(ShoppingCartContext)
-    const activeStyle = 'underline underline-offset-4'
-  
-    return (
-      <nav className="fixed top-0 z-10 flex items-center justify-between w-full px-8 py-5 text-sm font-light">
-        <ul className="flex items-center gap-3">
-          {navLeft.map((item, index) => (
-            <li key={item.text} className={item.className}>
+      <ul className="flex items-center gap-3">
+        {navRight.map((item, index) => (
+          <li key={item.text} className={item.className}>
+            {item.to !== "/cart" ? (
               <NavLink to={item.to}
-                className={({ isActive }) => isActive && index !== 0
-                  ? activeStyle : undefined}
+                className={({ isActive }) => isActive && index !== 0 ? "underline underline-offset-4" : undefined}
               >
                 {item.text}
               </NavLink>
-            </li>
-          ))}
-        </ul>
-        <ul className="flex items-center gap-3">
-          {navRight.map((item, index) => (
-            <li key={item.text} className={item.className}>
-              {item.to !== ''
-                ? <NavLink to={item.to}
-                    className={({ isActive }) => isActive && index !== 0
-                      ? activeStyle : undefined}
-                  >
-                    {item.text}
-                  </NavLink> 
-                : <li>
-                    {item.text}
-                  </li>
-              }
-            </li>
-          ))}
-        </ul>
-      </nav>
-    )
+            ) : (
+              <NavLink to="/cart" className="relative flex items-center">
+              🛒
+              {context.count > 0 && (
+                <span className="flex items-center justify-center w-5 h-5 ml-2 text-xs text-white bg-red-500 rounded-full">
+                  {context.count}
+                </span>
+              )}
+            </NavLink>
+            )}
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
   }
 
 export default Navbar
